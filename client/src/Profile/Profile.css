@@ -1,0 +1,26 @@
+audio{
+    min-width: 400px;
+    height: auto;
+    object-fit: inherit;
+}
+
+.songList {
+    overflow: "scroll";
+    width: "auto";
+    height: 80%;
+}
+
+.user-image-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.songImage {
+    width: 20%;
+    height: 50%;
+}
+
+.songs {
+    padding: 2rem;
+}
