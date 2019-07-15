@@ -5,7 +5,8 @@ UserSchema = new Schema({
   email: String,
   username: String,
   password: String,
-  groups: []
+  barcodes: [],
+  //groups: []
 });
 
 module.exports = mongoose.model('User', UserSchema);
