@@ -26,7 +26,7 @@ def shipDate(serial):
         return shipDate
     # could not get the ship date
     else:
-        return "Could not find device: {}".format(serial)
+        return False
 
 # get the device's name
 def name(serial):
@@ -42,5 +42,4 @@ def name(serial):
             return name
         except:
             pass
-    else:
-        return "Could not find device: {}".format(serial)
+    return False

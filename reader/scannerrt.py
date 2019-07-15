@@ -8,14 +8,40 @@ import cv2
 import info
 import threading
 
+email = ""
+password = ""
+# servo url
+url = ""
+
+def uploadInfo(email, password, name, shipDate, barcode):
+    r = requests.post(url + '/barcode', data=dict(
+        email=email,
+        password=password,
+        shipDate=shipDate,
+        name=name,
+        barcode=barcode
+        )
+    )
+
+    if r.status_code == 200:
+        print("Uploaded to {}".format(email))
+    else:
+        print("error: {},{}".format(status_code, r))
+
+
+
 def getInfo(barcodeData, email, password):
+        print("Getting Info")
         # get the dell device's name
         name = info.name(barcodeData)
         # get the dell device's ship date
         shipDate = info.shipDate(barcodeData)
-        if name == True and shipDate == True:
+        if name != False and shipDate != False:
                 print("got {} -- {} -- {}".format(barcodeData, name, shipDate))
+                uploadInfo(email, password, name, shipDate, barcode)
                 # uploadDate
+        else:
+            print("Error: {}".format(barcodeData))
         return
         
 
@@ -39,12 +65,12 @@ def scan(vs):
                         found.add(barcodeData)
                         # get warrenty info / upload to server
                         deviceInfoThread = threading.Thread(target=getInfo, args=(barcodeData, email, password))
+                        deviceInfoThread.start()
                 # write barcode data and type to image
                 text = "{} ({})".format(barcodeType, barcodeData)
                 cv2.putText(frame, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
             cv2.imshow("Barcode Scanner", frame)
-
             key = cv2.waitKey(1) & 0xFF
             if key == ord("q"):
                 break
@@ -58,7 +84,6 @@ if __name__ == '__main__':
         time.sleep(2.0)
         scan(vs)
         print("[INFO] cleaning up...")
-        csv.close()
         cv2.destroyAllWindows()
         vs.stop()
 
