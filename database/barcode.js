@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schemaa
+const Schema = mongoose.Schema
 
 const BarcodeSchema = new Schema({
 	group: String, // ObjectId

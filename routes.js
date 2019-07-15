@@ -48,7 +48,7 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
   });
 });
 
-const upload = require("./database/aws")();
+//const upload = require("./database/aws ")();
 
 // create a new group
 app.post("/create-group", (req, res) => {
@@ -60,7 +60,8 @@ app.post("/create-group", (req, res) => {
         const group = new Group({
           owner: user._id,
           name: req.body.name,
-          barcodes: []
+          barcodes: [],
+          description: ""
         });
         // save the group
         group.save((err, group) => {
@@ -68,14 +69,14 @@ app.post("/create-group", (req, res) => {
             // add group to user
             user.groups.push(group._id);
             user.save();
-            res.send({success: true, group});
+            res.status(200).send({success: true, group});
           }
         })
       }
     }
   );
   // error 
-  res.send({success: false, err});
+  res.status(400).send({success: false, err});
 });
 
 // upload a new barcode
@@ -96,12 +97,13 @@ app.post("/upload-barcode", (req, res) => {
           if (!err && barcode) {
             user.groups.push(barcode._id);
             user.save();
-            res.send({success: true, barcode});
+            res.status(200).send({success: true, barcode});
           }
         });
       }
     }
   );
+  res.status(404).send({success: false})
 });
 
 // get all of the group names
@@ -114,9 +116,10 @@ app.get("/groups", (req, res) => {
     (err, groups) => {
       if (!err && groups.length) {
         console.log(groups);
-        req.send({success: true, groups});
+        res.status(200).send({success: true, groups});
       }
   });
+  res.status(404).send({success: false});
 });
 
 // get a specific group
@@ -126,10 +129,11 @@ app.get("/group", (req, res) => {
     { _id: req.body.id },
     (err, group) => {
       if (!err && group) {
-        res.send({success: true, group});
+        res.status(200).send({success: true, group});
       }
     }
   )
+  res.status(404).send({success: false})
 });
 
 // gets a specific barcode
@@ -139,10 +143,11 @@ app.get("/barcode", (req, res) => {
     { _id: req.body.id },
     (err, barcode) => {
       if (!err && barcode) {
-        res.send({success: true, barcode});
+        res.status(200).send({success: true, barcode});
       }
     }
   )
+  res.status(404).send({success: false})
 })
 
 module.exports = app;

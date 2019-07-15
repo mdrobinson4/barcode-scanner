@@ -7,6 +7,7 @@ const bluebird = require("bluebird");
 const multiparty = require("multiparty");
 require("dotenv").config();
 
+/*
 const User = require("../database/user");
 const Song = require("../database/song");
 
@@ -39,3 +40,5 @@ module.exports = (app, db) => {
   };
   return module;
 };
+
+*/
