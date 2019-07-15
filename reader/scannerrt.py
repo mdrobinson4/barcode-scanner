@@ -5,6 +5,7 @@ import datetime
 import imutils
 import time
 import cv2
+import info
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-o", "--output", type=str, default="barcodes.csv",
@@ -33,7 +34,11 @@ while True:
 
         barcodeData = barcode.data.decode("utf-8")
         barcodeType = barcode.type
+        # print info derived from barcode
         print("Data: {}".format(barcodeData))
+        print("Name: {}".format(info.name(barcodeData)))
+        print("Ship Date: {}".format(info.shipDate(barcodeData)))
+        print()
 
         text = "{} ({})".format(barcodeData, barcodeType)
         cv2.putText(frame, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
