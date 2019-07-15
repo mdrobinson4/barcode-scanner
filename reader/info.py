@@ -42,5 +42,5 @@ def name(serial):
             return name
         except:
             pass
-     else:
+    else:
         return "Could not find device: {}".format(serial)
