@@ -26,7 +26,6 @@ while True:
 
     # find the barcodes and decode
     barcodes = pyzbar.decode(frame)
-    print(barcodes)
 
     for barcode in barcodes:
         (x, y, w, h) = barcode.rect
@@ -34,6 +33,7 @@ while True:
 
         barcodeData = barcode.data.decode("utf-8")
         barcodeType = barcode.type
+        print("Data: {}".format(barcodeData))
 
         text = "{} ({})".format(barcodeData, barcodeType)
         cv2.putText(frame, text, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
