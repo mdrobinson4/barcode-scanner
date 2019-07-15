@@ -30,7 +30,7 @@ def shipDate(serial):
 
 # get the device's name
 def name(serial):
-    url = "https://www.dell.com/support/home/us/en/04/product-support/servicetag/{}/events".format(serialNum)
+    url = "https://www.dell.com/support/home/us/en/04/product-support/servicetag/{}/events".format(serial)
     name = ""
     r = requests.post(url)
     if r.status_code == 200:
