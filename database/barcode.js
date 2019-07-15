@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const BarcodeSchema = new Schema({
-	group: String, // ObjectId
+	//group: String, // ObjectId
 	name: String,
 	url: String,
 	data: {}
