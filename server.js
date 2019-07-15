@@ -4,7 +4,6 @@ const fileType = require("file-type");
 const bluebird = require("bluebird");
 const multiparty = require("multiparty");
 require("dotenv").config();
-//
 const express = require("express");
 const app = express();
 const http = require("http");
