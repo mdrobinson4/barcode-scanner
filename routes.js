@@ -78,8 +78,8 @@ app.get("/barcodes", (req, res) => {
         res.status(200).send({barcodes});
       }
     )
-  }
   res.send(404).send({error});
+  }
 )
 
 // gets a specific barcode
