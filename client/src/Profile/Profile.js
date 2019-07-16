@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Profile.css";
 import io from "socket.io-client";
-import Card from "react-bootstrap"
+import Card from "react-bootstrap/Card"
 
 class Profile extends Component {
   constructor(props) {
@@ -51,28 +51,16 @@ class Profile extends Component {
     return (
       <div >
         {
-          this.state.inGroup ?
-          this.state.groups.map((group, i) => {
-            return (
-            <Card style={{ width: '18rem' }}>
-              <Card.Body>
-                <Card.Title>{ group.name }</Card.Title>
-                <Card.Text>
-                  { group.description }
-                </Card.Text>
-                <Card.Link href="#">Delete</Card.Link>
-              </Card.Body>
-            </Card>
-            )
-          }) : 
           this.state.barcodes.map((barcode, i) => {
             return (
             <Card style={{ width: '18rem' }}>
               <Card.Body>
-                <Card.Title>{ barcode.name }</Card.Title>
-                <Card.Text>
-                  { barcode.url }
-                </Card.Text>
+                <Card.Title>{ barcode.data.name }</Card.Title>
+                  { 
+                    barcode.data.map((data, i) => {
+                      return <Card.Text>{data}</Card.Text>
+                    })
+                  }
                 <Card.Link href="#">Delete</Card.Link>
               </Card.Body>
             </Card>
