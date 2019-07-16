@@ -7,7 +7,7 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.socket = null;
-    this.state = { };
+    this.state = [];
   }
 
   // get a list of the groups
