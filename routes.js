@@ -52,7 +52,8 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
 app.post("/upload-barcode", (req, res) => {
     let user = User.findOne(
     {'email': req.body.email, 'password': req.body.password},
-    if (user && !err) {
+    (err, user) => {
+      if (!err && user) {
         const barcode = new Barcode({
             data: req.body
         });
