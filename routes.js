@@ -48,8 +48,45 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
   });
 });
 
-//const upload = require("./database/aws ")();
+app.post("/upload-barcode", (req, res) => {
+    let user = User.findOne(
+    {'email': req.body.email, 'password': req.body.password},
+    if (user && !err) {
+        const barcode = new Barcode({
+            data: req.body
+        });
+        barcode.save((err, barcode) => {
+        if (!err && barcode) {
+            user.barcodes.push(barcode._id)
+        }
+        res.status(200).send({barcode, user})
+        }
+      )
+    }
+    res.status(404).send({err})
+})
 
+// gets a specific barcode
+// sent barcode id
+app.get("/barcode", (req, res) => {
+  // find the barcode
+  Barcode.find(
+    { _id: req.body.id },
+    (err, barcode) => {
+      if (!err && barcode) {
+        res.status(200).send({success: true, barcode});
+      }
+    }
+  )
+  res.status(404).send({success: false})
+})
+
+/////////////////////////////////////////////////
+  
+
+// const upload = require("./database/aws ")();
+
+/*
 // create a new group
 app.post("/create-group", (req, res) => {
   let user = User.findOne(
@@ -90,7 +127,7 @@ app.post("/upload-barcode", (req, res) => {
         const barcode = new Barcode({
           group: req.body.group,
           name: req.body.name,
-          url: req.body.url
+          data: req.body
         });
         // save barcode
         barcode.save((err, barcode) => {
@@ -135,19 +172,6 @@ app.get("/group", (req, res) => {
   )
   res.status(404).send({success: false})
 });
-
-// gets a specific barcode
-// sent barcode id
-app.get("/barcode", (req, res) => {
-  Barcode.find(
-    { _id: req.body.id },
-    (err, barcode) => {
-      if (!err && barcode) {
-        res.status(200).send({success: true, barcode});
-      }
-    }
-  )
-  res.status(404).send({success: false})
-})
+*/
 
 module.exports = app;
