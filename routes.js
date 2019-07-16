@@ -67,20 +67,16 @@ app.post("/upload-barcode", (req, res) => {
     }
     res.status(404).send({err})
 })
-
+    
 // gets all of the user's barcodes
 app.get("/barcodes", (req, res) => {
   // get all of their barcodes
-  Barcode.find(
-    { _id: { $in: req.user.barcodes } },
-    (err, barcodes) => {
-      if (!err && barcodes.length)
-        res.status(200).send({barcodes});
-      }
-    )
-  res.send(404).send({error});
-  }
-)
+  Barcode.find({ _id: { $in: req.user.barcodes } }, (err, barcodes) => {
+    if (!err && barcodes.length) res.status(200).send({ barcodes });
+  });
+  res.send(404).send({ error });
+});
+
 
 // gets a specific barcode
 // sent barcode id
@@ -96,14 +92,16 @@ app.get("/barcode", (req, res) => {
   )
   res.status(404).send({success: false})
 })
+  
+module.exports = app;
 
 /////////////////////////////////////////////////
   
 
 // const upload = require("./database/aws ")();
 
-/*
 // create a new group
+  /*
 app.post("/create-group", (req, res) => {
   let user = User.findOne(
     {'email': req.body.email, 'password': req.body.password},
@@ -189,5 +187,3 @@ app.get("/group", (req, res) => {
   res.status(404).send({success: false})
 });
 */
-
-module.exports = app;
