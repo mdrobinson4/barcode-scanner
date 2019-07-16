@@ -48,6 +48,7 @@ app.post("/login", passport.authenticate("local"), (req, res) => {
   });
 });
 
+// upload a barcode
 app.post("/upload-barcode", (req, res) => {
     let user = User.findOne(
     {'email': req.body.email, 'password': req.body.password},
@@ -66,6 +67,20 @@ app.post("/upload-barcode", (req, res) => {
     res.status(404).send({err})
 })
 
+// gets all of the user's barcodes
+app.get("/barcodes", (req, res) => {
+  // get all of their barcodes
+  Barcode.find(
+    { _id: { $in: req.user.barcodes } },
+    (err, barcodes) => {
+      if (!err && barcodes.length)
+        res.status(200).send({barcodes});
+      }
+    )
+  }
+  res.send(404).send({error});
+)
+
 // gets a specific barcode
 // sent barcode id
 app.get("/barcode", (req, res) => {
@@ -73,7 +88,7 @@ app.get("/barcode", (req, res) => {
   Barcode.find(
     { _id: req.body.id },
     (err, barcode) => {
-      if (!err && barcode) {
+      if (!err && barcode.length) {
         res.status(200).send({success: true, barcode});
       }
     }
