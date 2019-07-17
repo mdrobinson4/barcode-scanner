@@ -8,7 +8,7 @@ def shipDate(serial):
     url = "https://www.dell.com/support/components/dashboard/us/en/04/Warranty/GetWarrantyDetails"
     # make a post request to dell warrenty site
     r = requests.post(url, data=dict(
-        serviceTag=serial,
+        serviceTag=str(serial),
         isSerializedProduct=False
     ))
     # successful extract the name of the device
