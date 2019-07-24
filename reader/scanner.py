@@ -81,7 +81,7 @@ def scan(vs):
 if __name__ == '__main__':
         # initialize video stream
         print("[INFO] starting video stream...")
-        vs = VideoStream(usePiCamera=True).start()
+        vs = VideoStream(usePiCamera=False).start()
         time.sleep(2.0)
         scan(vs)
         print("[INFO] cleaning up...")
