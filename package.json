@@ -13,7 +13,7 @@
   "author": "mark",
   "license": "ISC",
   "dependencies": {
-    "auth0-js": "^9.10.4",
+    "auth0-js": "^9.13.2",
     "aws-sdk": "^2.466.0",
     "bluebird": "^3.5.5",
     "body-parser": "^1.19.0",
