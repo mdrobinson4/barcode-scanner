@@ -1,3 +1,2 @@
-# musi
 # barcode-scanner
-Raspberry pi based barcode scanner application. The pi scans the barcode, then the data is sent to the user's account (passed as args in program) and their email. The user can then log into their account (or email) and see the barcode data.
+Raspberry pi based barcode scanner application. The barcode is supplied to the raspbery pi via a webcam. After which, the information contained in the barcode is used to make a GET request to the Dell Warrenty API. If this is successful, information regarding the warrenty status is returned to the user.
