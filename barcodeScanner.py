@@ -9,26 +9,6 @@ import info
 import threading
 import requests
 
-email = ""
-password = ""
-# servo url
-url = ""
-
-def uploadInfo(email, password, name, shipDate, barcode):
-    r = requests.post(url + '/barcode', data=dict(
-        email=email,
-        password=password,
-        shipDate=shipDate,
-        name=name,
-        barcode=barcode
-        )
-    )
-
-    if r.status_code == 200:
-        print("Uploaded to {}".format(email))
-    else:
-        print("error: {},{}".format(status_code, r))
-
 
 
 def getInfo(barcodeData, email, password):
@@ -39,12 +19,10 @@ def getInfo(barcodeData, email, password):
         shipDate = info.shipDate(barcodeData)
         if name != False and shipDate != False:
             print("Name: {}\nShip Date: {}\nSerial Number:{}".format(name, shipDate, barcodeData))
-                # uploadInfo(email, password, name, shipDate, barcodeData)
-                # uploadDate
         else:
             print("Error: {}".format(barcodeData))
         return
-        
+
 
 def scan(vs):
         found = set()
@@ -87,6 +65,3 @@ if __name__ == '__main__':
         print("[INFO] cleaning up...")
         cv2.destroyAllWindows()
         vs.stop()
-
-        
-        
